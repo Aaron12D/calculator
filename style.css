@@ -1,0 +1,63 @@
+html{
+    height: 100%;
+}
+body{
+    background-image: linear-gradient(0deg, #355C7D, #C56C86);
+    font-size: 65px;
+}
+.container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #355C7D;
+    width: 700px;
+    height: 900px;
+    margin: auto;
+    border-radius: 35px;
+}
+.calc-body{
+    width: 700px;
+    height: 900px;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+}
+
+.row{
+    display: flex;
+    flex: auto;
+    justify-content: center;
+}
+#answer{
+    display: flex;
+    flex-direction: column;
+    text-align: start;
+    margin: 10px;
+    padding: 25px;
+    width: 680px;
+}
+#current-answer, #old-answer{
+    direction: rtl;
+    text-wrap: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    text-overflow: ;
+}
+.top, .right, .main{
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+.top, .right, .main, #answer{
+    display: flex;
+    background-color: #C56C86;
+    border-radius: 25px;
+    height: auto;
+    width: auto;
+    flex: 2;
+    margin: 10px;
+    font-size: 65px;
+}
+#zero{
+    flex: 4.25;
+}
