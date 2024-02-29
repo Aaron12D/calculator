@@ -41,7 +41,6 @@ body{
     text-wrap: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
-    text-overflow: ;
 }
 .top, .right, .main{
     align-items: center;
