@@ -37,7 +37,7 @@ body{
     width: 680px;
 }
 #current-answer, #old-answer{
-    direction: rtl;
+    text-align: end;
     text-wrap: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;

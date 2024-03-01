@@ -9,15 +9,19 @@ let totalStr = [];
 
 
 function checkOperand(){
-    const lastNum = parseInt(totalStr.slice(-1));
-    if (isNaN(lastNum)){
+    const lastNum = totalStr.slice(-1);
+    
+    console.log(totalStr.length)
+    if (lastNum == '+' ||
+        lastNum == '-' ||
+        lastNum == '*' ||
+        lastNum == '/' ||
+        totalStr.length == 0
+        ){
+
     } else {
         totalStr.push(operand);
         console.log(totalStr.join(''));
-        
-        currentNum = [];
-        // const reversedStr = totalStr.slice().reverse().join('')
-        // currentAnswer.textContent = `${reversedStr}`;
         console.log(totalStr);
     };
 }
@@ -28,10 +32,10 @@ function getTotal(){
 };
 
 document.addEventListener('click', function(event){
-    console.log(event.target.className)
+    // console.log(totalStr)
     if (event.target.id === 'equal' && totalStr.length >= 3){
         currentAnswer.textContent = getTotal();
-        oldAnswerTotal = `${getTotal()} = ${totalStr.join('')}`;
+        oldAnswerTotal = `${totalStr.join('')} = ${getTotal()}`;
         totalStr = [];
         currentNum = [];
     } else if (event.target.id === 'clear'){
@@ -42,54 +46,47 @@ document.addEventListener('click', function(event){
     } else if (event.target.id === 'plus'){
         operand = '+';
         checkOperand();
+        currentNum = [];
     } else if (event.target.id === 'minus'){
         operand = '-';
         checkOperand();
+        currentNum = [];
     } else if (event.target.id === 'multiply'){
         operand = '*'
         checkOperand();
+        currentNum = [];
     } else if (event.target.id === 'divide'){
         operand = '/'
         checkOperand();
+        currentNum = [];
     } else if (event.target.id === 'percent'){
-        checkOperand();
+        
+
     } else if (event.target.id === 'negative'){
         if (parseInt(currentNum.join('')) > 0){
-            totalStr.splice(-currentNum.length, currentNum.length, `-${currentNum}`);
-            currentNum.splice(-currentNum.length, currentNum.length, `-${currentNum}`)
-            const reverseNum = currentNum.splice().reverse().join('');
-            currentAnswer.textContent = reverseNum;
+            const currentNumStr = currentNum.toString().replace(/\,/g, '')
+            totalStr.splice(-currentNum.length, currentNum.length, `(-${currentNumStr})`);
+            currentNum.splice(-currentNum.length, currentNum.length, `-${currentNumStr}`);
+            currentAnswer.textContent = currentNum;
+        } else {
+            const currentNumStr = currentNum.toString().replace(/[\,-]/g, '')
+            totalStr.splice(-currentNum.length, currentNum.length, `(${currentNumStr})`);
+            currentNum.splice(-currentNum.length, currentNum.length, `${currentNumStr}`);
+            currentAnswer.textContent = currentNum;
         };
-        console.log(currentNum)
-        
     } else if (event.target.id === 'decimal'){
-
+        if (currentNum.includes('.')){
+        } else {
+            operand = '.'
+            checkOperand();
+            currentNum.push('.')
+            currentAnswer.textContent = currentNum.join('');
+        };
     } else if (event.target.className === 'main'){      
         currentNum.push(event.target.textContent)
         totalStr.push(event.target.textContent);
         currentAnswer.textContent = currentNum.join('');
     };
-    
-
-    // } else if (event.target.id === 'seven'){
-        
-    // } else if (event.target.id === 'eight'){
-
-    // } else if (event.target.id === 'nine'){
-
-    // } else if (event.target.id === 'four'){
-
-    // } else if (event.target.id === 'five'){
-
-    // } else if (event.target.id === 'six'){
-
-    // } else if (event.target.id === 'one'){
-
-    // } else if (event.target.id === 'two'){
-
-    // } else if (event.target.id === 'three'){
-
-    // } else if (event.target.id === 'zero'){
-
-    // };
+    console.log(totalStr)
+    console.log(currentNum)
 });
