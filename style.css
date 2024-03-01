@@ -1,9 +1,13 @@
+@import url('https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@200;300;400;700&display=swap');
+
 html{
     height: 100%;
 }
 body{
     background-image: linear-gradient(0deg, #355C7D, #C56C86);
     font-size: 65px;
+    font-family: 'shippori mincho';
+    font-weight: 400;
 }
 .container{
     display: flex;
@@ -14,6 +18,7 @@ body{
     height: 900px;
     margin: auto;
     border-radius: 35px;
+    box-shadow: 22px 22px 43px #9c4f66;
 }
 .calc-body{
     width: 700px;
@@ -21,8 +26,17 @@ body{
     display: flex;
     flex-direction: column;
     align-items: stretch;
+    
 }
-
+button{
+    font-family: inherit;
+    font-weight: 700;
+    border: none;
+    box-shadow: 2px 2px 4px #14314b;
+}
+button:hover{
+    background-color: #be94a9;
+}
 .row{
     display: flex;
     flex: auto;
@@ -32,15 +46,23 @@ body{
     display: flex;
     flex-direction: column;
     text-align: start;
-    margin: 10px;
-    padding: 25px;
+    margin: 5px;
+    padding: 20px;
     width: 680px;
+    background-color: #C56C86;
+    box-shadow: 2px 2px 4px #14314b;
 }
 #current-answer, #old-answer{
     text-align: end;
     text-wrap: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+}
+#current-answer{
+    font-weight: 700;
+}
+#old-answer{
+    font-weight: 200;
 }
 .top, .right, .main{
     align-items: center;
@@ -49,7 +71,6 @@ body{
 }
 .top, .right, .main, #answer{
     display: flex;
-    background-color: #C56C86;
     border-radius: 25px;
     height: auto;
     width: auto;
@@ -59,4 +80,13 @@ body{
 }
 #zero{
     flex: 4.25;
+}
+.top{
+    background-color: #725a7a;
+}
+.right{
+    background-color: #3ba4ac;
+}
+.main{
+    background-color: #C56C86;
 }

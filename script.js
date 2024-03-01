@@ -2,7 +2,6 @@ const currentAnswer = document.querySelector('#current-answer');
 const oldAnswer = document.querySelector('#old-answer');
 let oldAnswerTotal = '-';
 let currentNum = [];
-let secondNum = null;
 let operand = null;
 let total = null;
 let totalStr = [];
@@ -10,19 +9,17 @@ let totalStr = [];
 
 function checkOperand(){
     const lastNum = totalStr.slice(-1);
-    
-    console.log(totalStr.length)
     if (lastNum == '+' ||
         lastNum == '-' ||
         lastNum == '*' ||
         lastNum == '/' ||
         totalStr.length == 0
         ){
-
+    } else if (event.target.textContent == '.'){
+        currentNum.push('.')
+        totalStr.splice(-1, 1, `(${currentNum.join('')})`);
     } else {
         totalStr.push(operand);
-        console.log(totalStr.join(''));
-        console.log(totalStr);
     };
 }
 
@@ -32,12 +29,12 @@ function getTotal(){
 };
 
 document.addEventListener('click', function(event){
-    // console.log(totalStr)
+    console.log(totalStr)
     if (event.target.id === 'equal' && totalStr.length >= 3){
-        currentAnswer.textContent = getTotal();
-        oldAnswerTotal = `${totalStr.join('')} = ${getTotal()}`;
-        totalStr = [];
-        currentNum = [];
+        currentAnswer.textContent = Math.round(getTotal() * 10000) / 10000;
+        oldAnswerTotal = `${totalStr.join('')} = ${Math.round(getTotal() * 10000) / 10000}`;
+        totalStr = [`${Math.round(getTotal() * 10000) / 10000}`];
+        currentNum = [`${Math.round(getTotal() * 10000) / 10000}`];
     } else if (event.target.id === 'clear'){
         totalStr = [];
         currentNum = [];
@@ -60,33 +57,40 @@ document.addEventListener('click', function(event){
         checkOperand();
         currentNum = [];
     } else if (event.target.id === 'percent'){
-        
-
+        if (currentNum.length > 0 && totalStr.length <= 1){
+            currentAnswer.textContent = (parseInt(currentNum.join('')) / 100);
+            oldAnswerTotal = `${parseInt(currentNum.join(''))}/100 = ${parseInt(currentNum.join(''))/100}`
+            totalStr = [`${parseInt(currentNum.join('')) / 100}`];
+            currentNum = [];
+        };
     } else if (event.target.id === 'negative'){
         if (parseInt(currentNum.join('')) > 0){
             const currentNumStr = currentNum.toString().replace(/\,/g, '')
-            totalStr.splice(-currentNum.length, currentNum.length, `(-${currentNumStr})`);
+            totalStr.splice(-1, 1, `(-${currentNumStr})`);
             currentNum.splice(-currentNum.length, currentNum.length, `-${currentNumStr}`);
             currentAnswer.textContent = currentNum;
-        } else {
+        } else if (parseInt(currentNum.join('')) < 0){
             const currentNumStr = currentNum.toString().replace(/[\,-]/g, '')
-            totalStr.splice(-currentNum.length, currentNum.length, `(${currentNumStr})`);
+            totalStr.splice(-1, 1, `${currentNumStr}`);
             currentNum.splice(-currentNum.length, currentNum.length, `${currentNumStr}`);
             currentAnswer.textContent = currentNum;
         };
     } else if (event.target.id === 'decimal'){
-        if (currentNum.includes('.')){
+        if (totalStr.slice(-1).toString().split('').includes('.') || totalStr.length == 0){
         } else {
             operand = '.'
             checkOperand();
-            currentNum.push('.')
             currentAnswer.textContent = currentNum.join('');
         };
-    } else if (event.target.className === 'main'){      
-        currentNum.push(event.target.textContent)
-        totalStr.push(event.target.textContent);
-        currentAnswer.textContent = currentNum.join('');
+    } else if (event.target.className === 'main'){  
+        if (currentNum.length == 0){
+            currentNum.push(event.target.textContent);
+            totalStr.push(event.target.textContent)
+            currentAnswer.textContent = event.target.textContent;
+        } else {
+            currentNum.push(event.target.textContent)
+            totalStr.splice(-1, 1, `(${currentNum.join('')})`);
+            currentAnswer.textContent = currentNum.join('');
+        }
     };
-    console.log(totalStr)
-    console.log(currentNum)
 });
